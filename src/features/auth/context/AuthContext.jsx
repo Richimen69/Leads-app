@@ -10,19 +10,24 @@ export function AuthProvider({ children }) {
 
   // Carga el rol desde la tabla `usuarios`
   async function fetchRole(userId) {
+    console.log("FETCH ROLE", userId);
+
     const { data, error } = await supabase
       .from("usuarios")
       .select("rol")
-      .eq("auth_id", userId) // ← cambio aquí
-      .single();
+      .eq("auth_id", userId)
+      .maybeSingle();
+
+    console.log("ROLE DATA", data);
+    console.log("ROLE ERROR", error);
 
     if (error) {
       console.error("fetchRole:", error);
       return null;
     }
+
     return data?.rol ?? null;
   }
-
   useEffect(() => {
     // Sesión activa al montar
     supabase.auth.getSession().then(async ({ data: { session } }) => {
@@ -51,10 +56,16 @@ export function AuthProvider({ children }) {
   }, []);
 
   async function signIn(email, password) {
-    const { error } = await supabase.auth.signInWithPassword({
+    console.log("LOGIN START");
+
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
+
+    console.log("LOGIN RESPONSE", data);
+    console.log("LOGIN ERROR", error);
+
     if (error) throw error;
   }
 

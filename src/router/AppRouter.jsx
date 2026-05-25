@@ -8,10 +8,27 @@ import SeguimientoPage from "@/pages/SeguimientoPage";
 import DashboardPage from "@/pages/admin/DashboardPage";
 import ProspectosPage from "@/pages/admin/ProspectosPage";
 import AsesoresPage from "@/pages/admin/AsesoresPage";
+import { useAuth } from "@/features/auth/context/AuthContext";
 
+function RootRedirect() {
+  const { user, role, loading } = useAuth();
+
+  if (loading) return null;
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (role === "admin") {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
+
+  return <Navigate to="/login" replace />;
+}
 export default function AppRouter() {
   return (
     <Routes>
+      <Route path="/" element={<RootRedirect />} />
       {/* ── Públicas ── */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/seguimiento" element={<SeguimientoPage />} />

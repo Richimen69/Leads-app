@@ -2,16 +2,15 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 
-
 async function fetchAsesores() {
+  console.log("FETCH EJECUTANDO");
   const { data, error } = await supabase
     .from("usuarios")
-    .select("id, nombre")
-    .eq("rol", "asesor")
-    .order("nombre");
+    .select("*")
+    .eq("rol", "asesor");
 
-  console.log("asesores data:", data); // ← agrega esto
-  console.log("asesores error:", error); // ← y esto
+  console.log(data);
+  console.log(error);
 
   if (error) throw error;
   return data;
