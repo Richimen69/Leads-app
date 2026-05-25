@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────
+   TEMA  —  En v4 toda la config va aquí, no en tailwind.config.js
+   Cada variable de @theme genera automáticamente sus utilidades:
+   --color-toyota  →  bg-toyota / text-toyota / border-toyota
+   --font-display  →  font-display
+   ───────────────────────────────────────────────────────────── */
+@theme {
+
+  /* Fondos */
+  --color-bg:          #111827;
+  --color-bg-sidebar:  #0F172A;
+  --color-bg-card:     #1E293B;
+  --color-bg-card2:    #162032;
+
+  /* Toyota Red */
+  --color-toyota:      #EB0A1E;
+  --color-toyota-hover:#C40018;
+
+  /* Texto */
+  --color-ink:         #F8FAFC;
+  --color-ink-muted:   #94A3B8;
+
+  /* Bordes */
+  --color-line:        #334155;
+
+  /* Semánticos */
+  --color-ok:          #22C55E;
+  --color-warn:        #F59E0B;
+
+  /* Tipografía */
+  --font-sans:    "DM Sans", sans-serif;
+  --font-display: "Rajdhani", sans-serif;
+
+  /* Border radius */
+  --radius-card: 10px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+  }
+
+  * {
+    border-color: var(--color-line);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   COMPONENTES
+   ───────────────────────────────────────────────────────────── */
+@layer components {
+
+  /* ── Botones ── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    background-color: var(--color-toyota);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 150ms;
+  }
+  .btn-primary:hover { background-color: var(--color-toyota-hover); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    background-color: transparent;
+    color: var(--color-ink-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 6px;
+    border: 1px solid var(--color-line);
+    cursor: pointer;
+    transition: all 150ms;
+  }
+  .btn-outline:hover {
+    color: var(--color-ink);
+    border-color: var(--color-ink-muted);
+  }
+
+  /* ── Cards ── */
+  .card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    padding: 1.25rem;
+  }
+  .card-dark {
+    background-color: var(--color-bg-card2);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    padding: 1.25rem;
+  }
+
+  /* ── Input ── */
+  .input {
+    width: 100%;
+    padding: 8px 12px;
+    background-color: var(--color-bg-card);
+    color: var(--color-ink);
+    font-size: 0.875rem;
+    border: 1px solid var(--color-line);
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 150ms;
+  }
+  .input::placeholder { color: var(--color-ink-muted); }
+  .input:focus        { border-color: var(--color-toyota); }
+
+  /* ── Badges de estado ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 9px;
+    border-radius: 4px;
+    font-size: 0.6875rem;
+    font-weight: 500;
+  }
+  .badge::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: currentColor;
+    opacity: 0.8;
+  }
+  .badge-new     { background: rgb(59 130 246 / 0.12); color: #60A5FA; }
+  .badge-process { background: rgb(245 158 11 / 0.12); color: var(--color-warn); }
+  .badge-done    { background: rgb(34 197 94 / 0.12);  color: var(--color-ok); }
+  .badge-cold    { background: rgb(51 65 85 / 0.4);    color: var(--color-ink-muted); }
+
+  /* ── Nav item ── */
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 20px;
+    color: var(--color-ink-muted);
+    font-size: 0.84375rem;
+    border-left: 2px solid transparent;
+    cursor: pointer;
+    transition: all 150ms;
+  }
+  .nav-item:hover {
+    background-color: rgb(235 10 30 / 0.06);
+    color: var(--color-ink);
+  }
+  .nav-item.active {
+    color: var(--color-ink);
+    background-color: rgb(235 10 30 / 0.1);
+    border-left-color: var(--color-toyota);
+  }
+
+  /* ── Progress bar ── */
+  .progress-track {
+    height: 4px;
+    background-color: var(--color-line);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    background-color: var(--color-toyota);
+    transition: width 300ms;
+  }
+  .progress-fill.complete { background-color: var(--color-ok); }
+
+  /* ── Checkbox circular de seguimiento ── */
+  .check-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 150ms;
+    cursor: pointer;
+  }
+  .check-circle.checked {
+    background-color: var(--color-toyota);
+    border-color: var(--color-toyota);
+  }
+  .check-circle:hover:not(.checked) {
+    border-color: var(--color-toyota);
+  }
+}
