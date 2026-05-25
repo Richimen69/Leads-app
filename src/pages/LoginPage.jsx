@@ -33,7 +33,7 @@ export default function LoginPage() {
 
       {/* ── Panel izquierdo — branding ── */}
       <div
-        className="hidden lg:flex flex-col justify-between w-105 bg-bg-sidebar p-12"
+        className="hidden lg:flex flex-col justify-between w-[420px] bg-bg-sidebar p-12"
         style={{ borderRight: '1px solid var(--color-line)' }}
       >
         {/* Logo */}
